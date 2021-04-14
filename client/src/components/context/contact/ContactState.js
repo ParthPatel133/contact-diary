@@ -11,12 +11,14 @@ const ContactState = (props) => {
         name: "one",
         email: "one@gmail.com",
         type: "personal",
+        phone: "206 5205 165",
       },
       {
         id: 2,
         name: "two",
         email: "two@gmail.com",
-        type: "personal",
+        type: "professional",
+        phone: "562 5965 265",
       },
     ],
   };
