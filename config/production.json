@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://parth123:parth123@contactmanager.ybpdi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
