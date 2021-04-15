@@ -4,7 +4,6 @@ import contactContext from "./contactContext";
 import contactReducer from "./contactReducer";
 import {
   ADD_CONTACT,
-  CLEAR_CONTACTS,
   CLEAR_CURRENT,
   CLEAR_FILTER,
   DELETE_CONTACT,
