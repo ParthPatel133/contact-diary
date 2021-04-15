@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AlertContext from "../../context/alert/alertContext";
 
 const Register = () => {
+  const alertContext = useContext(AlertContext);
+
+  const { setAlert } = alertContext;
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -19,6 +24,13 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (name === "" || email === "" || password === "") {
+      setAlert("please enter all fields", "danger");
+    } else if (password !== password2) {
+      setAlert("Password do not match", "danger");
+    } else {
+      console.log("register completed");
+    }
   };
 
   return (
@@ -26,10 +38,16 @@ const Register = () => {
       <h1>
         Account <span className="text-primary">Register</span>
       </h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={name} onChange={handleChange} />
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -37,34 +55,39 @@ const Register = () => {
             type="email"
             name="email"
             value={email}
+            required
             onChange={handleChange}
           />
         </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+            minLength={6}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password2">Password</label>
+          <input
+            type="password"
+            name="password2"
+            value={password2}
+            onChange={handleChange}
+            required
+            minLength={6}
+          />
+        </div>
+        <input
+          type="submit"
+          value="Register"
+          className="btn btn-primary btn-block"
+        />
       </form>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="password2">Password</label>
-        <input
-          type="password"
-          name="password2"
-          value={password2}
-          onChange={handleChange}
-        />
-      </div>
-      <input
-        type="submit"
-        value="Register"
-        className="btn btn-primary btn-block"
-        onSubmit={handleSubmit}
-      />
     </div>
   );
 };
