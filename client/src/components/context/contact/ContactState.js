@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { v4 as uuid } from "uuid";
 import contactContext from "./contactContext";
 import contactReducer from "./contactReducer";
-import { ADD_CONTACT } from "../types";
+import { ADD_CONTACT, DELETE_CONTACT } from "../types";
 
 const ContactState = (props) => {
   const initialState = {
@@ -33,6 +33,10 @@ const ContactState = (props) => {
   };
 
   //delete contact
+  const deleteContact = (id) => {
+    dispatch({ type: DELETE_CONTACT, payload: id });
+  };
+
   //set current contact
   //clear current contact
   //update current contact
@@ -44,6 +48,7 @@ const ContactState = (props) => {
       value={{
         contacts: state.contacts,
         addContact,
+        deleteContact,
       }}
     >
       {props.children}
