@@ -5,6 +5,8 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import ContactState from "./context/contact/ContactState";
 import AuthState from "./context/auth/AuthState";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/about" component={About} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/login" component={Login} />
                 </Switch>
               </div>
             </div>
