@@ -1,6 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
 
-const Login = () => {
+const Login = (props) => {
+  const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
+
+  const { setAlert } = alertContext;
+  const { login, error, clearErrors, isAuthnticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthnticated) {
+      props.history.push("/");
+    }
+
+    if (error === "Invalid Credentials") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+  }, [error, isAuthnticated, props.history]);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -17,6 +36,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (email === "" || password === "") {
+      setAlert("Please fill in all fields", "danger");
+    } else {
+      login({
+        email,
+        password,
+      });
+    }
   };
 
   return (
@@ -24,7 +51,7 @@ const Login = () => {
       <h1>
         Account <span className="text-primary">Login</span>
       </h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -32,24 +59,25 @@ const Login = () => {
             name="email"
             value={email}
             onChange={handleChange}
+            required
           />
         </div>
-      </form>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
+          type="submit"
+          value="Login"
+          className="btn btn-primary btn-block"
         />
-      </div>
-      <input
-        type="submit"
-        value="Login"
-        className="btn btn-primary btn-block"
-        onSubmit={handleSubmit}
-      />
+      </form>
     </div>
   );
 };
